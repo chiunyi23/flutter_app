@@ -9,10 +9,11 @@ import 'package:shop_app/screens/otp/otp_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
+import 'package:shop_app/screens/confirm/confirm_screen.dart';
+import 'package:shop_app/screens/machine/machine_screen.dart';
 
 import 'screens/sign_up/sign_up_screen.dart';
 import 'screens/map/map_screen.dart';
-import 'screens/map/place_tracker_app.dart';
 
 // We use name route
 // All our routes will be available here
@@ -29,4 +30,6 @@ final Map<String, WidgetBuilder> routes = {
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   MapScreen.routeName: (context) => MapScreen(),
+  ConfirmScreen.routeName: (context) => ConfirmScreen(),
+  MachineScreen.routeName: (context) => MachineScreen(),
 };

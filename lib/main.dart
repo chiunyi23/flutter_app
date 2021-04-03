@@ -7,10 +7,7 @@ import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/theme.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => AppState(),
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

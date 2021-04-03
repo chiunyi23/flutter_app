@@ -4,6 +4,7 @@ import 'package:shop_app/components/default_button.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import '../../confirm/confirm_screen.dart';
 
 class CheckoutCard extends StatelessWidget {
   const CheckoutCard({
@@ -78,7 +79,9 @@ class CheckoutCard extends StatelessWidget {
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "確認",
-                    press: () {},
+                    press: () {
+                      Navigator.pushNamed(context, ConfirmScreen.routeName);
+                    },
                   ),
                 ),
               ],

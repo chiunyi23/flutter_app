@@ -99,5 +99,4 @@ List<Product> demoProducts = [
   ),
 ];
 
-const String description =
-    "some descriptions …";
+const String description = "some descriptions …";

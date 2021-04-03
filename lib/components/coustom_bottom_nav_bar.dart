@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
+import 'package:shop_app/screens/map/map_screen.dart';
 
 import '../constants.dart';
 import '../enums.dart';
@@ -46,7 +47,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       : inActiveIconColor,
                 ),
                 onPressed: () =>
-                    Navigator.pushNamed(context, HomeScreen.routeName),
+                    Navigator.pushNamed(context, MapScreen.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
@@ -54,7 +55,8 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () {},
+                onPressed: () =>
+                    Navigator.pushNamed(context, HomeScreen.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset(
