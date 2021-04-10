@@ -12,45 +12,15 @@ class _BodyState extends State<Body> {
   final LocalAuthentication auth = LocalAuthentication();
   bool _canCheckBiometrics;
   List<BiometricType> _availableBiometrics;
-  String _authorized = 'Not Authorized';
+  String _authorized = '未驗證';
   bool _isAuthenticating = false;
-
-  Future<void> _checkBiometrics() async {
-    bool canCheckBiometrics;
-    try {
-      canCheckBiometrics = await auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      canCheckBiometrics = false;
-      print(e);
-    }
-    if (!mounted) return;
-
-    setState(() {
-      _canCheckBiometrics = canCheckBiometrics;
-    });
-  }
-
-  Future<void> _getAvailableBiometrics() async {
-    List<BiometricType> availableBiometrics;
-    try {
-      availableBiometrics = await auth.getAvailableBiometrics();
-    } on PlatformException catch (e) {
-      availableBiometrics = <BiometricType>[];
-      print(e);
-    }
-    if (!mounted) return;
-
-    setState(() {
-      _availableBiometrics = availableBiometrics;
-    });
-  }
 
   Future<void> _authenticate() async {
     bool authenticated = false;
     try {
       setState(() {
         _isAuthenticating = true;
-        _authorized = 'Authenticating';
+        _authorized = '驗證中';
       });
       authenticated = await auth.authenticateWithBiometrics(
           localizedReason: 'Scan your fingerprint to authenticate',
@@ -65,7 +35,7 @@ class _BodyState extends State<Body> {
     }
     if (!mounted) return;
 
-    final String message = authenticated ? 'Authorized' : 'Not Authorized';
+    final String message = authenticated ? '通過' : '未通過';
     setState(() {
       _authorized = message;
     });
@@ -80,26 +50,16 @@ class _BodyState extends State<Body> {
     return MaterialApp(
         home: Scaffold(
           appBar: AppBar(
-            title: const Text('Plugin example app'),
+            title: const Text('指紋驗證'),
           ),
           body: ConstrainedBox(
               constraints: const BoxConstraints.expand(),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Can check biometrics: $_canCheckBiometrics\n'),
+                    Text('$_authorized\n'),
                     ElevatedButton(
-                      child: const Text('Check biometrics'),
-                      onPressed: _checkBiometrics,
-                    ),
-                    Text('Available biometrics: $_availableBiometrics\n'),
-                    ElevatedButton(
-                      child: const Text('Get available biometrics'),
-                      onPressed: _getAvailableBiometrics,
-                    ),
-                    Text('Current State: $_authorized\n'),
-                    ElevatedButton(
-                      child: Text(_isAuthenticating ? 'Cancel' : 'Authenticate'),
+                      child: Text(_isAuthenticating ? '取消' : '驗證'),
                       onPressed:
                       _isAuthenticating ? _cancelAuthentication : _authenticate,
                     ),

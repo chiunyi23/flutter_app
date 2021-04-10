@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'machine.dart';
-
+import 'package:http/http.dart' as http;
 
 class MachineInfo {
   static const List<Machine> machines = [
@@ -17,4 +17,10 @@ class MachineInfo {
         description: 'No 2 machine'
     ),
   ];
+}
+
+
+Future<http.Response> fetchMachineInfo() {
+  return http.get(Uri.http('127.0.0.1:3000', 'mobile/location'));
+  // return http.get(Uri.http('jsonplaceholder.typicode.com', 'albums/1'));
 }

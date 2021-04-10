@@ -25,8 +25,12 @@ class Body extends StatefulWidget {
 class _MapState extends State<Body> {
   final Map<String, Marker> _markers = {};
 
-  void _onMapCreated(GoogleMapController controller) {
+  Future<void> _onMapCreated(GoogleMapController controller) async {
     final machines = MachineInfo.machines;
+    print(machines);
+    //final machines_info = await getMachineInfo();
+    // final machines_info = await fetchMachineInfo();
+    // print(machines_info);
     setState(() {
       _markers.clear();
       for (final machine in machines) {
@@ -76,8 +80,8 @@ class _MapState extends State<Body> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Google Office Locations'),
-          backgroundColor: Colors.green[700],
+          title: const Text('選擇地點'),
+          backgroundColor: Colors.blueGrey,
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
