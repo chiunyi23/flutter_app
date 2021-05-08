@@ -3,6 +3,8 @@ import 'package:shop_app/screens/cart/cart_screen.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/Cart.dart';
 
 class HomeHeader extends StatelessWidget {
   final String id;
@@ -11,6 +13,7 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var len = Provider.of<CartModel>(context).products.length;
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -21,13 +24,14 @@ class HomeHeader extends StatelessWidget {
           Text('No. '+ id),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
+            numOfitem: len,
             press: () => Navigator.pushNamed(context, CartScreen.routeName),
           ),
-          IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 3,
-            press: () {},
-          ),
+          // IconBtnWithCounter(
+          //   svgSrc: "assets/icons/Bell.svg",
+          //   numOfitem: 3,
+          //   press: () {},
+          // ),
         ],
       ),
     );

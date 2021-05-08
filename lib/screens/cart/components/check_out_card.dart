@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/Cart.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import '../../confirm/confirm_screen.dart';
-
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/Cart.dart';
 class CheckoutCard extends StatelessWidget {
   const CheckoutCard({
     Key key,
@@ -13,6 +15,8 @@ class CheckoutCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cart = Provider.of<CartModel>(context);
+    var totalPrice = cart.totalPrice();
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getProportionateScreenWidth(15),
@@ -69,7 +73,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "總計:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
+                        text: totalPrice.toString(),
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],

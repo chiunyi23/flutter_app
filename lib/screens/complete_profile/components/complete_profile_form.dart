@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/models/Account.dart';
+import 'package:shop_app/screens/map/map_screen.dart';
 import 'package:shop_app/screens/otp/otp_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/controllers/signup.dart';
+import 'package:shop_app/screens/scan/scan_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -37,6 +42,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   @override
   Widget build(BuildContext context) {
+    var user = context.watch<AccountModel>();
     return Form(
       key: _formKey,
       child: Column(
@@ -52,12 +58,30 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "完成",
-            press: () {
+            press: () async {
               // if (_formKey.currentState.validate()) {
               //   Navigator.pushNamed(context, OtpScreen.routeName);
               // }
               if (_formKey.currentState.validate()) {
-                Navigator.pushNamed(context, HomeScreen.routeName);
+                _formKey.currentState.save();
+                user.setAddress(address);
+                user.setName(firstName, lastName);
+                user.setNumber(phoneNumber);
+                user.setBirthday('2000-01-01');
+                final sendData = await sendUserAccount(user.email, user.password, user.firstName, user.birthday);
+                if (sendData == 'ok') {
+                  print('sent');
+                  // if all are valid then go to success screen
+                  // await Navigator.pushNamed(context, ScanScreen.routeName);
+
+                  Navigator.pushNamed(context, MapScreen.routeName);
+                }
+                else {
+                  await Fluttertoast.showToast(msg: '無法連接伺服器');
+                  print('not connected');
+                }
+
+
               }
             },
           ),

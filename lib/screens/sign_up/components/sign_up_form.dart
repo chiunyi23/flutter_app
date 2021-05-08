@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/models/Account.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
-
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -36,6 +38,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    var user = context.watch<AccountModel>();
     return Form(
       key: _formKey,
       child: Column(
@@ -52,7 +55,9 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                // if all are valid then go to success screen
+                // Provider.of<AccountModel>(context, listen: false).update1(email, password);
+                user.setEmail(email);
+                user.setPassword(password);
                 Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
             },
@@ -131,7 +136,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => {email = newValue,},
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);

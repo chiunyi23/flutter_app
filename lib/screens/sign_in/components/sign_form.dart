@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/helper/keyboard.dart';
@@ -8,6 +9,10 @@ import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:shop_app/controllers/signup.dart';
+import 'package:shop_app/models/Account.dart';
+import 'package:provider/provider.dart';
+import 'dart:convert';
 
 class SignForm extends StatefulWidget {
   @override
@@ -37,6 +42,7 @@ class _SignFormState extends State<SignForm> {
 
   @override
   Widget build(BuildContext context) {
+    var user = context.watch<AccountModel>();
     return Form(
       key: _formKey,
       child: Column(
@@ -72,12 +78,24 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "登入",
-            press: () {
+            press: () async{
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                final isValid = await Signin(email, password);
+                if(isValid == 'INVALID') {
+                  await Fluttertoast.showToast(msg: '帳號或密碼錯誤');
+                }
+                else {
+                  // final accountInfo = jsonDecode(isValid);
+                  Map<String, dynamic> accountInfo = jsonDecode(isValid)[0];
+                  user.setName(accountInfo['name'], 'lastname');
+                  user.setBirthday(accountInfo['birthday']);
+                  user.setEmail(accountInfo['email']);
+                  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                }
+
               }
             },
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/map/map_screen.dart';
+import 'package:shop_app/screens/scan/scan_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/size_config.dart';
 
@@ -63,7 +64,9 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "開始使用",
                       press: () {
-                        Navigator.pushNamed(context, MapScreen.routeName);
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        // Navigator.pushNamed(context, MapScreen.routeName);
+                        // Navigator.pushNamed(context, ScanScreen.routeName);
                       },
                     ),
                     Spacer(),

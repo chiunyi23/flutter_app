@@ -6,6 +6,10 @@ import '../../../size_config.dart';
 import 'section_title.dart';
 
 class PopularProducts extends StatelessWidget {
+  // ignore: sort_constructors_first
+  const PopularProducts({Key key, @required this.id}) : super(key: key);
+  final String id;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,10 +25,9 @@ class PopularProducts extends StatelessWidget {
           child: Row(
             children: [
               ...List.generate(
-                demoProducts.length,
+                demoProducts[id].length,
                 (index) {
-                  if (demoProducts[index].isPopular)
-                    return ProductCard(product: demoProducts[index]);
+                    return ProductCard(product: demoProducts[id][index]);
 
                   return SizedBox
                       .shrink(); // here by default width and height is 0

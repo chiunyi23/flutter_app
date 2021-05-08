@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'machine.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +22,13 @@ class MachineInfo {
 }
 
 
-Future<http.Response> fetchMachineInfo() {
-  return http.get(Uri.http('127.0.0.1:3000', 'mobile/location'));
-  // return http.get(Uri.http('jsonplaceholder.typicode.com', 'albums/1'));
+Future<List<Machine>> fetchMachineInfo() async {
+  // List<Machine> machines
+  final response = await http.get(Uri.http('192.168.1.193:3000', 'mobile/location'));
+  if (response.statusCode == 200) {
+    // return Machine.fromJson(jsonDecode(response.body));
+    return (jsonDecode(response.body) as List).map((m) => Machine.fromJson(m)).toList();
+  } else {
+    throw Exception('Fail to load Machine information');
+  }
 }

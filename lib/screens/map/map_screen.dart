@@ -4,6 +4,7 @@ import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
 import '../../enums.dart';
 import 'components/body.dart';
 
+
 class MapScreen extends StatelessWidget {
   static String routeName = 'map';
   @override

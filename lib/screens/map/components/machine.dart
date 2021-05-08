@@ -34,4 +34,14 @@ class Machine {
         description: description ?? this.description,
       );
   }
+
+  factory Machine.fromJson(Map<String, dynamic> json) {
+    // LatLng json_latlng = ();
+    return Machine(
+      id: json['id'],
+      latLng: LatLng.fromJson(json['latlng']),
+      name: json['name'],
+      description: json['description']
+    );
+  }
 }

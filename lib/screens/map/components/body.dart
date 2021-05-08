@@ -2,10 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shop_app/models/Account.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/screens/machine/machine_screen.dart';
 import 'locations.dart' as locations;
 import 'machine_info.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/Cart.dart';
 
 
 class Body extends StatefulWidget {
@@ -26,14 +29,14 @@ class _MapState extends State<Body> {
   final Map<String, Marker> _markers = {};
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    final machines = MachineInfo.machines;
-    print(machines);
-    //final machines_info = await getMachineInfo();
-    // final machines_info = await fetchMachineInfo();
-    // print(machines_info);
+    // final machines_info = MachineInfo.machines;
+    // print(machines);
+    // final machines_info = await getMachineInfo();
+    final machines_info = await fetchMachineInfo();
+    print(machines_info);
     setState(() {
       _markers.clear();
-      for (final machine in machines) {
+      for (final machine in machines_info) {
         final marker = Marker(
           markerId: MarkerId(machine.id),
           position: LatLng(machine.latitude, machine.longitude),
@@ -77,10 +80,14 @@ class _MapState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    // var inCart = context.watch<CartModel>();
+    // inCart.clearAll();
+    var user = context.watch<AccountModel>();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('選擇地點'),
+          // title: const Text('選擇地點'),
+          title: Text(user.email),
           backgroundColor: Colors.blueGrey,
         ),
         body: GoogleMap(

@@ -3,10 +3,14 @@ import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/screens/map/map_screen.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/Account.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var account = Provider.of<AccountModel>(context);
+    final name = account.firstName;
     return Column(
       children: [
         SizedBox(height: SizeConfig.screenHeight * 0.04),
@@ -23,13 +27,21 @@ class Body extends StatelessWidget {
             color: Colors.black,
           ),
         ),
+        Text(
+          "Hi! " + name,
+          style: TextStyle(
+            fontSize: getProportionateScreenWidth(20),
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
         Spacer(),
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
             text: "主畫面",
             press: () {
-              Navigator.pushNamed(context, HomeScreen.routeName);
+              Navigator.pushNamed(context, MapScreen.routeName);
             },
           ),
         ),
