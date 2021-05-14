@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shop_app/models/Account.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
@@ -27,13 +28,23 @@ class Body extends StatefulWidget {
 
 class _MapState extends State<Body> {
   final Map<String, Marker> _markers = {};
+  @override initState() {
+    // BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(48, 48)), 'assets/vending-machine.png').
+    //   then((onValue) {
+    //     myIcon = onValue;
+    //     print('myicon: ');
+    //     print(myIcon.toJson());
+    // });
+    // myIcon = BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(48, 48)), 'assets/vending-machine.png');
+  }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     // final machines_info = MachineInfo.machines;
     // print(machines);
     // final machines_info = await getMachineInfo();
+
     final machines_info = await fetchMachineInfo();
-    print(machines_info);
+    final myIcon = await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(64, 64)), 'assets/images/vending-machine128.png');
     setState(() {
       _markers.clear();
       for (final machine in machines_info) {
@@ -45,6 +56,8 @@ class _MapState extends State<Body> {
             snippet: machine.description,
             onTap: () => Navigator.pushNamed(context, MachineScreen.routeName, arguments: {'id': machine.id})
           ),
+          icon: myIcon,
+          // icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(48, 48)), 'assets/vending-machine.png'),
         );
         _markers[machine.name] = marker;
       }
@@ -84,18 +97,20 @@ class _MapState extends State<Body> {
     // inCart.clearAll();
     var user = context.watch<AccountModel>();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           // title: const Text('選擇地點'),
-          title: Text(user.email),
+          title: Text(user.firstName),
           backgroundColor: Colors.blueGrey,
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(
             // TODO: set initialCameraPosition to users current location
-            target: const LatLng(23.892946073360573, 121.53660884449597),
+            target: const LatLng(23.899946073360573, 121.53980884449597),
             zoom: 15,
+
           ),
           markers: _markers.values.toSet(),
         ),

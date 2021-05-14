@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'Product.dart';
 
-class Cart {
-  final Product product;
-  final int numOfItem;
-
-  Cart({@required this.product, @required this.numOfItem});
-}
+// class Cart {
+//   final Product product;
+//   final int numOfItem;
+//
+//   Cart({@required this.product, @required this.numOfItem});
+// }
 
 // Demo data for our cart
 
-List<Cart> demoCarts = [
-  Cart(product: demoProducts['1'][0], numOfItem: 2),
-  Cart(product: demoProducts['1'][1], numOfItem: 1),
-  Cart(product: demoProducts['1'][3], numOfItem: 1),
-];
+// List<Cart> demoCarts = [
+//   Cart(product: demoProducts['1'][0], numOfItem: 2),
+//   Cart(product: demoProducts['1'][1], numOfItem: 1),
+//   Cart(product: demoProducts['1'][3], numOfItem: 1),
+// ];
 
 class CartModel extends ChangeNotifier {
   List<Product> _products = [];
   int counter = 0;
   List<Product> get products => _products;
 
-  double totalPrice() {
-    double total = 0;
+  int totalPrice() {
+    int total = 0;
     for(var product in products) {
-      total += product.price as double;
+      total += product.price;
     }
     return total;
   }

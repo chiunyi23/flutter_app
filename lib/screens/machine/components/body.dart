@@ -7,7 +7,7 @@ class Body extends StatelessWidget {
   final String id;
 
   // ignore: sort_constructors_first
-  Body({Key key, @required this.id}) : super(key: key);
+    Body({Key key, @required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

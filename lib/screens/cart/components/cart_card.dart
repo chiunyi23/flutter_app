@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/Product.dart';
 import '../../../size_config.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/Cart.dart';
 
 class CartCard extends StatelessWidget {
   const CartCard({
@@ -38,18 +41,18 @@ class CartCard extends StatelessWidget {
               maxLines: 2,
             ),
             SizedBox(height: 10),
-            // Text.rich(
-            //   TextSpan(
-            //     text: "\$${cart.product.price}",
-            //     style: TextStyle(
-            //         fontWeight: FontWeight.w600, color: kPrimaryColor),
-            //     children: [
-            //       TextSpan(
-            //           text: " x${cart.numOfItem}",
-            //           style: Theme.of(context).textTheme.bodyText1),
-            //     ],
-            //   ),
-            // )
+            Text.rich(
+              TextSpan(
+                text: '${product.price}',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600, color: kPrimaryColor),
+                // children: [
+                //   TextSpan(
+                //       text: " x${cart.numOfItem}",
+                //       style: Theme.of(context).textTheme.bodyText1),
+                // ],
+              ),
+            )
           ],
         )
       ],

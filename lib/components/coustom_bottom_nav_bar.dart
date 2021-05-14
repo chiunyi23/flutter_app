@@ -54,9 +54,9 @@ class CustomBottomNavBar extends StatelessWidget {
                 onPressed: () {},
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () =>
-                    Navigator.pushNamed(context, HomeScreen.routeName),
+                icon: SvgPicture.asset("assets/icons/Bell.svg"),
+                // onPressed: () =>
+                    // Navigator.pushNamed(context, HomeScreen.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset(

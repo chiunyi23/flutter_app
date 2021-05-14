@@ -26,6 +26,16 @@ class AccountModel extends ChangeNotifier{
   String _number;
   String _address;
 
+  AccountModel() {
+    _firstName = 'test_first';
+    _lastName = 'test_last';
+    _email = 'test_email';
+    _age = 10;
+    _birthday = '1999-10-10';
+    _number = '0912345678';
+    _address = 'test_address';
+  }
+
   String get email => _email;
   String get password => _password;
   String get birthday => _birthday;

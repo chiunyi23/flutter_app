@@ -10,9 +10,11 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    dynamic parameters = ModalRoute.of(context).settings.arguments;
+    String id = parameters['id'];
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Body(id: id),
       bottomNavigationBar: CheckoutCard(),
     );
   }

@@ -36,7 +36,21 @@ class PopularProducts extends StatelessWidget {
               SizedBox(width: getProportionateScreenWidth(20)),
             ],
           ),
-        )
+        ),
+        // GridView(gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 120),
+        //   children: [
+        //     ...List.generate(
+        //       demoProducts[id].length,
+        //           (index) {
+        //         return ProductCard(product: demoProducts[id][index]);
+        //
+        //         return SizedBox
+        //             .shrink(); // here by default width and height is 0
+        //       },
+        //     ),
+        //     SizedBox(width: getProportionateScreenWidth(20)),
+        //   ],
+        // )
       ],
     );
   }

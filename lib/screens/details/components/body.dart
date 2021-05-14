@@ -43,7 +43,7 @@ class Body extends StatelessWidget {
                           top: getProportionateScreenWidth(15),
                         ),
                         child: DefaultButton(
-                          text: "放入購物車",
+                          text: '放入購物車',
                           press: () {
                             var cart = context.read<CartModel>();
                             cart.add(product);

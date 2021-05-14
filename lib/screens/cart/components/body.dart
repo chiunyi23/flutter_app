@@ -7,6 +7,8 @@ import 'cart_card.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
+  final String id;
+  Body({Key key, @required this.id}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -26,11 +28,11 @@ class _BodyState extends State<Body> {
             key: UniqueKey(), // inCart.products[index].id.toString()
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
-              inCart.remove(inCart.products[index]);
-              // setState(() {
-              //   demoCarts.removeAt(index);
-              // });
-            },
+            inCart.remove(inCart.products[index]);
+            // setState(() {
+            //   demoCarts.removeAt(index);
+            // });
+          },
             background: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(

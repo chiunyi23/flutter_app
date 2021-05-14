@@ -18,14 +18,16 @@ class HomeHeader extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // SearchField(),
-          Text('No. '+ id),
+          // Text('No. '+ id),
+          Text('理工二館一樓', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
             numOfitem: len,
-            press: () => Navigator.pushNamed(context, CartScreen.routeName),
+            press: () => Navigator.pushNamed(context, CartScreen.routeName, arguments: {'id': id}),
           ),
           // IconBtnWithCounter(
           //   svgSrc: "assets/icons/Bell.svg",
