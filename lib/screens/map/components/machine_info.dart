@@ -27,7 +27,7 @@ Future<List<Machine>> fetchMachineInfo() async {
   final response = await http.get(Uri.http('192.168.1.193:3000', 'mobile/location'));
   if (response.statusCode == 200) {
     print(response.body);
-    // return Machine.fromJson(jsonDecode(response.body));
+    // return Machine.fromJson(jsonDecode(response.body.dart));
     return (jsonDecode(response.body) as List).map((m) => Machine.fromJson(m)).toList();
   } else {
     throw Exception('Fail to load Machine information');
