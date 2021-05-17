@@ -75,7 +75,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                   Navigator.pushNamed(context, MapScreen.routeName);
                 }
                 else {
-                  await Fluttertoast.showToast(msg: '無法連接伺服器');
+                  await Fluttertoast.showToast(msg: '伺服器錯誤');
                   print('not connected');
                 }
 

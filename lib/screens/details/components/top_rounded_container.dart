@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';
@@ -20,9 +21,8 @@ class TopRoundedContainer extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
+        borderRadius: BorderRadius.all(
+          Radius.circular(40),
         ),
       ),
       child: child,

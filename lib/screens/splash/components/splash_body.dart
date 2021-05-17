@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/screens/confirm/confirm_screen.dart';
 import 'package:shop_app/screens/map/map_screen.dart';
 import 'package:shop_app/screens/scan/scan_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/size_config.dart';
 
 import 'package:shop_app/screens/home/home_screen.dart';
-
+import 'package:shop_app/controllers/signup.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // This is the best practice
 import '../components/splash_content.dart';
 import '../../../components/default_button.dart';
@@ -23,8 +26,36 @@ class _BodyState extends State<Body> {
     {"text": "選定離你最近的販賣機與飲料", "image": "assets/images/splash_2.png"},
     {"text": "透過 NFC 支付，省去掏零錢的困擾", "image": "assets/images/splash_3.png"},
   ];
+
+  Future<bool> checkLogin() async {
+    var prefs = await SharedPreferences.getInstance();
+    print('in splash++');
+    final user = prefs.get('user');
+    final password = prefs.getString('password');
+
+    print(user);
+    print(password);
+
+    final isValid = await Signin(user, password);
+    if(isValid == 'Timeout') {
+      await Fluttertoast.showToast(msg: '無法連接伺服器');
+      return false;
+    }
+    else if(isValid == 'INVALID') {
+      return false;
+    }
+    else {
+      print('valid');
+      await Fluttertoast.showToast(msg: '歡迎回來');
+      return true;
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
@@ -63,9 +94,18 @@ class _BodyState extends State<Body> {
                     Spacer(flex: 3),
                     DefaultButton(
                       text: "開始使用",
-                      press: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
-                        // Navigator.pushNamed(context, MapScreen.routeName);
+                      press: () async{
+
+                        bool valid = await checkLogin();
+                        if(valid) {
+                          print('valid in splash');
+                          Navigator.pushNamed(context, MapScreen.routeName);
+                        }
+                        else {
+                          print('not valid in splash');
+                          Navigator.pushNamed(context, SignInScreen.routeName);
+                        }
+                          // Navigator.pushNamed(context, MapScreen.routeName);
                         // Navigator.pushNamed(context, ScanScreen.routeName);
                       },
                     ),

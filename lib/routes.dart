@@ -11,6 +11,7 @@ import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/screens/confirm/confirm_screen.dart';
 import 'package:shop_app/screens/machine/machine_screen.dart';
+import 'package:shop_app/screens/take_order/take_order_screen.dart';
 
 import 'screens/sign_up/sign_up_screen.dart';
 import 'screens/map/map_screen.dart';
@@ -34,4 +35,5 @@ final Map<String, WidgetBuilder> routes = {
   ConfirmScreen.routeName: (context) => ConfirmScreen(),
   MachineScreen.routeName: (context) => MachineScreen(),
   ScanScreen.routeName: (context) => ScanScreen(),
+  TakeOrderScreen.routeName: (context) => TakeOrderScreen(),
 };

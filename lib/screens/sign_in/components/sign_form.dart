@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/helper/keyboard.dart';
-import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
+import 'package:shop_app/screens/map/map_screen.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -84,7 +85,10 @@ class _SignFormState extends State<SignForm> {
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
                 final isValid = await Signin(email, password);
-                if(isValid == 'INVALID') {
+                if(isValid == 'Timeout') {
+                  await Fluttertoast.showToast(msg: '無法連接伺服器');
+                }
+                else if(isValid == 'INVALID') {
                   await Fluttertoast.showToast(msg: '帳號或密碼錯誤');
                 }
                 else {
@@ -93,7 +97,14 @@ class _SignFormState extends State<SignForm> {
                   user.setName(accountInfo['name'], 'lastname');
                   user.setBirthday(accountInfo['birthday']);
                   user.setEmail(accountInfo['email']);
-                  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  await prefs.setString('user', email);
+                  await prefs.setString('password', password);
+
+                  print('in sign form-');
+                  print(prefs.getString('user'));
+                  print(prefs.getString('password'));
+                  await Navigator.pushNamed(context, MapScreen.routeName);
                 }
 
               }

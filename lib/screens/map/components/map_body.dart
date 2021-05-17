@@ -27,6 +27,7 @@ class Body extends StatefulWidget {
 // }
 
 class _MapState extends State<Body> {
+
   final Map<String, Marker> _markers = {};
   @override initState() {
     // BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(48, 48)), 'assets/vending-machine.png').
@@ -36,6 +37,7 @@ class _MapState extends State<Body> {
     //     print(myIcon.toJson());
     // });
     // myIcon = BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(48, 48)), 'assets/vending-machine.png');
+
   }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
@@ -54,7 +56,9 @@ class _MapState extends State<Body> {
           infoWindow: InfoWindow(
             title: machine.name,
             snippet: machine.description,
-            onTap: () => Navigator.pushNamed(context, MachineScreen.routeName, arguments: {'id': machine.id})
+            onTap: () {
+                Navigator.pushNamed(context, MachineScreen.routeName, arguments: {'id': machine.id});
+             }
           ),
           icon: myIcon,
           // icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(48, 48)), 'assets/vending-machine.png'),

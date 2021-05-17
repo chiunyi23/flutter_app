@@ -21,6 +21,7 @@ class CartModel extends ChangeNotifier {
   List<Product> _products = [];
   int counter = 0;
   List<Product> get products => _products;
+  String mID;
 
   int totalPrice() {
     int total = 0;

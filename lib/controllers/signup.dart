@@ -29,21 +29,26 @@ Future<String> sendUserAccount(String email, String password, String name, Strin
 }
 
 Future<String> Signin(String email, String password) async {
-  final res = await http.post(
-    Uri.http('192.168.1.193:3000' , 'user/signin'),
-    headers: <String, String> {
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String> {
-      'email': email,
-      'password': password,
-    }),
-  );
+  try {
+    final res = await http.post(
+      Uri.http('192.168.1.193:3000', 'user/signin'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'password': password,
+      }),
+    );
 
-  print(res.body);
-  if (res.body == 'INVALID') {
-    return 'INVALID';
-  } else {
-    return res.body;
+    print(res.body);
+    if (res.body == 'INVALID') {
+      return 'INVALID';
+    } else {
+      return res.body;
+    }
+  } on TimeoutException catch (_) {
+    print('timeout');
+    return 'Timeout';
   }
 }

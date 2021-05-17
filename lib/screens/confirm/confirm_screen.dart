@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/Cart.dart';
 
-import 'components/body.dart';
+import 'components/confirm_body.dart';
 
 class ConfirmScreen extends StatelessWidget {
   static String routeName = "/confirm";

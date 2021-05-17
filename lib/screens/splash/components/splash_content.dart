@@ -11,8 +11,10 @@ class SplashContent extends StatelessWidget {
   }) : super(key: key);
   final String text, image;
 
+
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         Spacer(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -35,7 +36,11 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "登出",
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () async {
+              var prefs = await SharedPreferences.getInstance();
+              await prefs.setString('user', '');
+              await prefs.setString('password', '');
+            },
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/screens/take_order/take_order_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -9,12 +10,16 @@ import '../../confirm/confirm_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/Cart.dart';
 class CheckoutCard extends StatelessWidget {
+
   const CheckoutCard({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    dynamic parameters = ModalRoute.of(context).settings.arguments;
+    String id = parameters['id'];
+
     var cart = Provider.of<CartModel>(context);
     var totalPrice = cart.totalPrice();
     return Container(
@@ -84,7 +89,7 @@ class CheckoutCard extends StatelessWidget {
                   child: DefaultButton(
                     text: "確認",
                     press: () {
-                      Navigator.pushNamed(context, ConfirmScreen.routeName);
+                      Navigator.pushNamed(context, TakeOrderScreen.routeName, arguments: {'id': id});
                     },
                   ),
                 ),
