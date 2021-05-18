@@ -25,6 +25,7 @@ class AccountModel extends ChangeNotifier{
   String _password;
   String _number;
   String _address;
+  int _balance;
 
   AccountModel() {
     _firstName = 'test_first';
@@ -34,6 +35,7 @@ class AccountModel extends ChangeNotifier{
     _birthday = '1999-10-10';
     _number = '0912345678';
     _address = 'test_address';
+    _balance = 0;
   }
 
   String get email => _email;
@@ -44,6 +46,7 @@ class AccountModel extends ChangeNotifier{
   String get address => _address;
   String get firstName => _firstName;
   String get lastName => _lastName;
+  int get balance => _balance;
 
   void setEmail(String email) {
     _email = email;
@@ -69,6 +72,14 @@ class AccountModel extends ChangeNotifier{
   }
   void setBirthday(String birthday) {
     _birthday = birthday;
+    notifyListeners();
+  }
+  void setBalance(String balance) {
+    _balance = int.parse(balance);
+    notifyListeners();
+  }
+  void setBalanceInt(int balance) {
+    _balance = balance;
     notifyListeners();
   }
 

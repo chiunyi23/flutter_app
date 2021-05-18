@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/controllers/signup.dart';
 import 'package:shop_app/models/Account.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/screens/scan/scan_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class _SignUpFormState extends State<SignUpForm> {
   String password;
   String conform_password;
   bool remember = false;
+  String firstName;
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -43,6 +46,8 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
+          buildFirstNameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -51,18 +56,63 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "繼續",
-            press: () {
+            text: "下一步",
+            press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 // Provider.of<AccountModel>(context, listen: false).update1(email, password);
                 user.setEmail(email);
                 user.setPassword(password);
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                user.setName(firstName, 'last');
+
+                final sendData = await sendUserAccount(user.email, user.password, user.firstName, user.birthday);
+                if (sendData == 'ok') {
+                  print('sent');
+                  // if all are valid then go to success screen
+                  // await Navigator.pushNamed(context, ScanScreen.routeName);
+
+                  await Navigator.pushNamed(context, ScanScreen.routeName);
+                }
+                else if(sendData == 'duplicated'){
+                  await Fluttertoast.showToast(msg: '帳號已有人註冊');
+                  print('duplicated');
+                }
+                else {
+                  await Fluttertoast.showToast(msg: '伺服器錯誤');
+                  print('server failed');
+                }
+                // await Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
             },
           ),
         ],
+      ),
+    );
+  }
+
+  TextFormField buildFirstNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => firstName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "名稱",
+        hintText: '輸入名稱',
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
     );
   }

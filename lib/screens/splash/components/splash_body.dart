@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/constants.dart';
@@ -13,6 +15,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 // This is the best practice
 import '../components/splash_content.dart';
 import '../../../components/default_button.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/Account.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -27,7 +31,7 @@ class _BodyState extends State<Body> {
     {"text": "透過 NFC 支付，省去掏零錢的困擾", "image": "assets/images/splash_3.png"},
   ];
 
-  Future<bool> checkLogin() async {
+  Future<String> checkLogin() async {
     var prefs = await SharedPreferences.getInstance();
     print('in splash++');
     final user = prefs.get('user');
@@ -37,25 +41,54 @@ class _BodyState extends State<Body> {
     print(password);
 
     final isValid = await Signin(user, password);
+    Map<String, dynamic> accountInfo = jsonDecode(isValid)[0];
     if(isValid == 'Timeout') {
       await Fluttertoast.showToast(msg: '無法連接伺服器');
-      return false;
+      return 'false';
     }
     else if(isValid == 'INVALID') {
-      return false;
+      return 'false';
     }
     else {
       print('valid');
-      await Fluttertoast.showToast(msg: '歡迎回來');
-      return true;
+      // await Fluttertoast.showToast(msg: '歡迎回來');
+      return accountInfo['balance'].toString();
     }
 
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
 
-
+    var user = Provider.of<AccountModel>(context);
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
@@ -96,14 +129,15 @@ class _BodyState extends State<Body> {
                       text: "開始使用",
                       press: () async{
 
-                        bool valid = await checkLogin();
-                        if(valid) {
-                          print('valid in splash');
-                          Navigator.pushNamed(context, MapScreen.routeName);
-                        }
-                        else {
+                        String valid = await checkLogin();
+                        if(valid == 'false') {
                           print('not valid in splash');
                           Navigator.pushNamed(context, SignInScreen.routeName);
+                        }
+                        else {
+                          print('valid in splash');
+                          user.setBalance(valid);
+                          Navigator.pushNamed(context, MapScreen.routeName);
                         }
                           // Navigator.pushNamed(context, MapScreen.routeName);
                         // Navigator.pushNamed(context, ScanScreen.routeName);

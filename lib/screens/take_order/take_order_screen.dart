@@ -11,9 +11,10 @@ class TakeOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     dynamic parameters = ModalRoute.of(context).settings.arguments;
     String id = parameters['id'];
+    int price = parameters['price'];
     return Scaffold(
       body: Body(id: id),
-      bottomNavigationBar: ConfirmButton(),
+      bottomNavigationBar: ConfirmButton(price: price),
     );
   }
 

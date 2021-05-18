@@ -17,8 +17,8 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final LocalAuthentication auth = LocalAuthentication();
-  bool _canCheckBiometrics;
-  List<BiometricType> _availableBiometrics;
+  // bool _canCheckBiometrics;
+  // List<BiometricType> _availableBiometrics;
   String _authorized = '未驗證';
   bool _isAuthenticating = false;
 
@@ -63,9 +63,6 @@ class _BodyState extends State<Body> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          // appBar: AppBar(
-          //   title: const Text('指紋驗證'),
-          // ),
           body: ConstrainedBox(
               constraints: const BoxConstraints.expand(),
               child: Column(

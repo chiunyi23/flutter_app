@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/Account.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/screens/machine/machine_screen.dart';
 import 'package:shop_app/screens/map/map_screen.dart';
@@ -14,14 +15,15 @@ import 'package:provider/provider.dart';
 
 class ConfirmButton extends StatelessWidget {
 
+  final int price;
   const ConfirmButton({
-    Key key,
+    Key key, @required this.price,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var cart = Provider.of<CartModel>(context);
-
+    var user = Provider.of<AccountModel>(context);
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getProportionateScreenWidth(15),
@@ -56,6 +58,7 @@ class ConfirmButton extends StatelessWidget {
                   child: DefaultButton(
                     text: "取消",
                     press: () {
+                      user.setBalanceInt(user.balance + price);
                       Navigator.pop(context);
                     },
                   ),

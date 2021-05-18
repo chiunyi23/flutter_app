@@ -97,13 +97,12 @@ class _SignFormState extends State<SignForm> {
                   user.setName(accountInfo['name'], 'lastname');
                   user.setBirthday(accountInfo['birthday']);
                   user.setEmail(accountInfo['email']);
+                  user.setBalance(accountInfo['balance']);
+
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   await prefs.setString('user', email);
                   await prefs.setString('password', password);
 
-                  print('in sign form-');
-                  print(prefs.getString('user'));
-                  print(prefs.getString('password'));
                   await Navigator.pushNamed(context, MapScreen.routeName);
                 }
 

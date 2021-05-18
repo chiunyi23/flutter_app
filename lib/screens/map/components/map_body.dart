@@ -10,6 +10,7 @@ import 'locations.dart' as locations;
 import 'machine_info.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/Cart.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class Body extends StatefulWidget {
@@ -100,6 +101,7 @@ class _MapState extends State<Body> {
     // var inCart = context.watch<CartModel>();
     // inCart.clearAll();
     var user = context.watch<AccountModel>();
+    Fluttertoast.showToast(msg: '歡迎回來, ' + user.firstName);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
