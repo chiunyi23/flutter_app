@@ -17,7 +17,7 @@ class RatingScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
-      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.favourite),
+      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.rating),
     );
   }
 
