@@ -4,6 +4,7 @@ import 'package:shop_app/models/Account.dart';
 import 'package:shop_app/routes.dart';
 import 'package:shop_app/screens/map/map_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
+import 'package:shop_app/screens/scan/scan_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           // home: SplashScreen(),
           // We use routeName so that we dont need to remember the name
           initialRoute: SplashScreen.routeName,
+          // initialRoute: ScanScreen.routeName,
           routes: routes,
         ),
     );

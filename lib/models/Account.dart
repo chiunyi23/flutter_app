@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-
+import 'Product.dart';
 
 class Account {
   String userName;
@@ -26,6 +26,7 @@ class AccountModel extends ChangeNotifier{
   String _number;
   String _address;
   int _balance;
+  List<Product> _history;
 
   AccountModel() {
     _firstName = 'test_first';
@@ -36,6 +37,7 @@ class AccountModel extends ChangeNotifier{
     _number = '0912345678';
     _address = 'test_address';
     _balance = 0;
+    _history = [];
   }
 
   String get email => _email;
@@ -47,9 +49,17 @@ class AccountModel extends ChangeNotifier{
   String get firstName => _firstName;
   String get lastName => _lastName;
   int get balance => _balance;
+  List<Product> get history => _history;
 
   void setEmail(String email) {
     _email = email;
+    if(int.tryParse(email[0]) == null) {
+      _age = 20;
+    }
+    else {
+      _age = 16;
+    }
+    print(_age);
     notifyListeners();
   }
   void setPassword(String password) {
@@ -81,6 +91,27 @@ class AccountModel extends ChangeNotifier{
   void setBalanceInt(int balance) {
     _balance = balance;
     notifyListeners();
+  }
+
+  void addHistory(Product p) {
+    bool isDuplicated = false;
+    for(var index = 0; index < _history.length; index++) {
+      if(p.title == _history[index].title) {
+        isDuplicated = true;
+        break;
+      }
+    }
+    if(!isDuplicated) {
+      p.rating = 0;
+      _history.add(p);
+    }
+    notifyListeners();
+  }
+
+  void changeRating(int index, double rating) {
+    _history[index].rating = rating;
+    print('in change');
+    print(_history[index].rating.toString());
   }
 
 

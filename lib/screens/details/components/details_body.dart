@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/Account.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/size_config.dart';
@@ -17,6 +19,15 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<AccountModel>(context);
+    bool isValid = true;
+    if(user.age < 18 && product.limited == 1) {
+      isValid = false;
+    }
+    else {
+      isValid = true;
+    }
+
     return ListView(
       children: [
         ProductImages(product: product),
@@ -28,6 +39,26 @@ class Body extends StatelessWidget {
         //   child: SizedBox(height: 50,),
         // ),
         SizedBox(height: 30,),
+        Card(
+            elevation: 5.0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+            margin: EdgeInsets.all(getProportionateScreenWidth(10), ),
+            child: ((){
+              if(product.limited == 1) {
+                return Column(
+                    children: [
+                      SizedBox(height: 20,),
+                      Text(
+                        isValid? '符合條件': '未符合購買限制',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: isValid? Colors.green: Colors.red),
+                      ),
+                      SizedBox(height: 20,)
+                    ],
+                  );
+              }
+            }())
+        ),
         Card(
           elevation: 5.0,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -56,7 +87,13 @@ class Body extends StatelessWidget {
               text: '放入購物車',
               press: () {
                 var cart = context.read<CartModel>();
-                cart.add(product);
+                if(isValid) {
+                  cart.add(product);
+                  Fluttertoast.showToast(msg: '成功加入');
+                }
+                else {
+                  Fluttertoast.showToast(msg: '未符合資格，加入失敗');
+                }
               },
             ),
           ),

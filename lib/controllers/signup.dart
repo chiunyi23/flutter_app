@@ -8,7 +8,7 @@ Server server;
 
 Future<String> sendUserAccount(String email, String password, String name, String birthday) async {
   final res = await http.post(
-    Uri.http('192.168.1.193:3000' , 'user/signup'),
+    Uri.http('192.168.1.191:3000' , 'user/signup'),
     headers: <String, String> {
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -31,7 +31,7 @@ Future<String> sendUserAccount(String email, String password, String name, Strin
 Future<String> Signin(String email, String password) async {
   try {
     final res = await http.post(
-      Uri.http('192.168.1.193:3000', 'user/signin'),
+      Uri.http('192.168.1.191:3000', 'user/signin'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

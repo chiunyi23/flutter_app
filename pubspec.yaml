@@ -38,6 +38,9 @@ dependencies:
   flutter_mobile_vision: ^0.1.4+1
   fluttertoast: ^8.0.6
   shared_preferences: ^2.0.5
+  flutter_rating_bar: ^4.0.0
+#  camera: ^0.8.1
+#  camera_camera: ^1.0.0
 #  connectivity_plus: ^1.0.1
 
 dev_dependencies:

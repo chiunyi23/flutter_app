@@ -5,10 +5,11 @@ class Product {
   final String title, description;
   final List<String> images;
   // final List<Color> colors;
-  final double rating;
+  double rating;
   final int price;
   final bool isFavourite, isPopular;
   final String machine_id;
+  final int limited;
 
   Product({
     @required this.id,
@@ -21,6 +22,7 @@ class Product {
     @required this.price,
     @required this.description,
     this.machine_id = '1',
+    this.limited = 0,
   });
 }
 
@@ -56,6 +58,7 @@ Map<String, List<Product>> demoProducts = {
       rating: 4.8,
       isFavourite: true,
       isPopular: true,
+      limited: 1,
     ),
     Product(
       id: 2,
@@ -108,6 +111,7 @@ Map<String, List<Product>> demoProducts = {
       description: description,
       rating: 4.1,
       isFavourite: true,
+      limited: 1,
     ),
   ],
   '2':[
@@ -128,6 +132,7 @@ Map<String, List<Product>> demoProducts = {
     rating: 4.1,
     isFavourite: true,
     isPopular: true,
+      limited: 1,
     ),
     Product(
       id: 2,
@@ -142,7 +147,9 @@ Map<String, List<Product>> demoProducts = {
       // ],
       title: "Kirin Bar Beer",
       price: 50,
-      description: description,
+      description: '''
+        台灣原創品牌，簡單不複雜的形象、清爽不苦的口感，開朗自由、充滿活力，激發出積極努力的心情，是適合年輕人的啤酒。
+      ''',
       rating: 4.1,
       isFavourite: true,
       isPopular: true,
@@ -181,10 +188,11 @@ Map<String, List<Product>> demoProducts = {
       // ],
       title: "Kirin Bar Beer",
       price: 50,
-      description: description,
+      description: '台灣原創品牌，簡單不複雜的形象、清爽不苦的口感，開朗自由、充滿活力，激發出積極努力的心情，是適合年輕人的啤酒。',
       rating: 4.1,
       isFavourite: true,
       isPopular: true,
+      limited: 1,
     ),
   ],
 };

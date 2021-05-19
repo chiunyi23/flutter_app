@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:shop_app/models/Account.dart';
+import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/map/map_screen.dart';
 import 'package:shop_app/screens/splash/components/splash_content.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../size_config.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 
@@ -60,6 +63,9 @@ class _BodyState extends State<Body> {
     if(_authorized == '未通過') {
       Navigator.pop(context);
     }
+
+    var cart = Provider.of<CartModel>(context);
+    var user = Provider.of<AccountModel>(context);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -90,6 +96,10 @@ class _BodyState extends State<Body> {
                     // ),
                     ElevatedButton(
                         onPressed: () => {
+                          for(var index = 0; index < cart.products.length; index++) {
+                            user.addHistory(cart.products[index]),
+                          },
+                          cart.clearCart(),
                           Navigator.pushReplacementNamed(context, LoginSuccessScreen.routeName)
                         },
                         child: Text('OK')),

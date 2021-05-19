@@ -101,7 +101,7 @@ class _MapState extends State<Body> {
     // var inCart = context.watch<CartModel>();
     // inCart.clearAll();
     var user = context.watch<AccountModel>();
-    Fluttertoast.showToast(msg: '歡迎回來, ' + user.firstName);
+    // Fluttertoast.showToast(msg: '歡迎回來, ' + user.firstName);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile_vision/flutter_mobile_vision.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/controllers/signup.dart';
 import 'package:shop_app/models/Account.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:shop_app/screens/map/map_screen.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -39,6 +41,27 @@ class _SignUpFormState extends State<SignUpForm> {
       });
   }
 
+  // to camera page
+  int _ocrCamera = FlutterMobileVision.CAMERA_BACK;
+  String _text = "TEXT";
+  Future<Null> _read() async {
+    List<OcrText> texts = [];
+    try {
+      texts = await FlutterMobileVision.read(
+        camera: _ocrCamera,
+        waitTap: true,
+        showText: false,
+        preview: Size(640, 480),
+      );setState(() {
+        _text = texts[0].value;
+      });
+    } on Exception {
+      texts.add( OcrText('Failed to recognize text'));
+    }
+    // Navigator.pushNamed(context, mapScreen.routeName);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var user = context.watch<AccountModel>();
@@ -71,7 +94,10 @@ class _SignUpFormState extends State<SignUpForm> {
                   // if all are valid then go to success screen
                   // await Navigator.pushNamed(context, ScanScreen.routeName);
 
-                  await Navigator.pushNamed(context, ScanScreen.routeName);
+                  // await Navigator.pushNamed(context, ScanScreen.routeName);
+                  _read();
+                  await Navigator.pushReplacementNamed(context, MapScreen.routeName);
+
                 }
                 else if(sendData == 'duplicated'){
                   await Fluttertoast.showToast(msg: '帳號已有人註冊');

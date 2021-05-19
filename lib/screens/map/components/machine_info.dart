@@ -24,7 +24,7 @@ class MachineInfo {
 
 Future<List<Machine>> fetchMachineInfo() async {
   // List<Machine> machines
-  final response = await http.get(Uri.http('192.168.1.193:3000', 'mobile/location'));
+  final response = await http.get(Uri.http('192.168.1.191:3000', 'mobile/location'));
   if (response.statusCode == 200) {
     print(response.body);
     return (jsonDecode(response.body) as List).map((m) => Machine.fromJson(m)).toList();

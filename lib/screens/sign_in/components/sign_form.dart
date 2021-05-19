@@ -97,7 +97,7 @@ class _SignFormState extends State<SignForm> {
                   user.setName(accountInfo['name'], 'lastname');
                   user.setBirthday(accountInfo['birthday']);
                   user.setEmail(accountInfo['email']);
-                  user.setBalance(accountInfo['balance']);
+                  user.setBalanceInt(accountInfo['balance']);
 
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   await prefs.setString('user', email);

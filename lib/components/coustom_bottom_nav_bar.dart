@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/map/map_screen.dart';
+import 'package:shop_app/screens/rating/rating_screen.dart';
 
 import '../constants.dart';
 import '../enums.dart';
@@ -51,7 +52,8 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
-                onPressed: () {},
+                onPressed: () =>
+                Navigator.pushNamed(context, RatingScreen.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Bell.svg"),

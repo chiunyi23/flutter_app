@@ -16,6 +16,7 @@ import 'package:shop_app/screens/take_order/take_order_screen.dart';
 import 'screens/sign_up/sign_up_screen.dart';
 import 'screens/map/map_screen.dart';
 import 'screens/scan/scan_screen.dart';
+import 'screens/rating/rating_screen.dart';
 
 // We use name route
 // All our routes will be available here
@@ -36,4 +37,5 @@ final Map<String, WidgetBuilder> routes = {
   MachineScreen.routeName: (context) => MachineScreen(),
   ScanScreen.routeName: (context) => ScanScreen(),
   TakeOrderScreen.routeName: (context) => TakeOrderScreen(),
+  RatingScreen.routeName: (context) => RatingScreen(),
 };

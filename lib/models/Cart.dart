@@ -50,6 +50,12 @@ class CartModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearCart() {
+    _products = [];
+    counter = 0;
+    notifyListeners();
+  }
+
 //   void clearAll() {
 //     _products.clear();
 //     notifyListeners();

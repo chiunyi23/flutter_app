@@ -41,7 +41,6 @@ class _BodyState extends State<Body> {
     print(password);
 
     final isValid = await Signin(user, password);
-    Map<String, dynamic> accountInfo = jsonDecode(isValid)[0];
     if(isValid == 'Timeout') {
       await Fluttertoast.showToast(msg: '無法連接伺服器');
       return 'false';
@@ -51,6 +50,7 @@ class _BodyState extends State<Body> {
     }
     else {
       print('valid');
+      Map<String, dynamic> accountInfo = jsonDecode(isValid)[0];
       // await Fluttertoast.showToast(msg: '歡迎回來');
       return accountInfo['balance'].toString();
     }

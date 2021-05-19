@@ -10,7 +10,6 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var account = Provider.of<AccountModel>(context);
-
     return Column(
       children: [
         SizedBox(height: SizeConfig.screenHeight * 0.04),
